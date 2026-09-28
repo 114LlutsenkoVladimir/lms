@@ -1,15 +1,15 @@
 services:
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:16'
     container_name: lms_postgres
     environment:
-      POSTGRES_DB: learning_management_system
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
+      POSTGRES_DB: learning_management_system
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata_v16:/var/lib/postgresql/data
 
 volumes:
-  pgdata:
+  pgdata_v16:
