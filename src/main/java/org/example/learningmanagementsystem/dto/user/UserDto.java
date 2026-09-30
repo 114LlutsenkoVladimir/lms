@@ -1,9 +1,6 @@
 package org.example.learningmanagementsystem.dto.user;
 
-import jakarta.persistence.Column;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
+import org.example.learningmanagementsystem.entity.UserRole;
 
 import java.time.Instant;
 
@@ -13,6 +10,6 @@ public record UserDto(
         String passwordHash,
         String firstName,
         String lastName,
-        String role,
+        UserRole role,
         Instant createdAt
 ) {}
