@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users/")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("create")
     public UserDto createUser(@RequestBody CreateUserDto user) {
-
+        return userService.createFromDto(user);
     }
 }
