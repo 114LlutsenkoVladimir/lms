@@ -1,0 +1,7 @@
+PATCH http://localhost:8080/users/update/1
+Content-Type: application/json
+
+{
+  "firstName": "Алексей",
+  "lastName": "Петров"
+}
