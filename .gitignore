@@ -4,6 +4,13 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Игнорировать файлы Docker Compose (если хотите скрыть их полностью)
+/compose.yaml
+
+
+# Игнорировать файл с реальными настройками и паролями базы данных
+
+/src/main/resources/application.properties
 ### STS ###
 .apt_generated
 .classpath
