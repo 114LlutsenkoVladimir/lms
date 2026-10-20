@@ -1,5 +1,6 @@
 package org.example.learningmanagementsystem.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +23,15 @@ public abstract class AbstractCrudService<T, ID, R extends JpaRepository<T, ID>>
 
     @Transactional
     public void deleteById(ID id) {
+        findById(id);
         repository.deleteById(id);
     }
 
     @Transactional(readOnly = true)
     public T findById(ID id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow(
+                EntityNotFoundException::new
+        );
     }
 
     @Transactional(readOnly = true)

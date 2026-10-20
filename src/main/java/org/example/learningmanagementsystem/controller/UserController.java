@@ -7,6 +7,8 @@ import org.example.learningmanagementsystem.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users/")
 public class UserController {
@@ -15,6 +17,11 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("findAll")
+    public List<User> findAll() {
+        return userService.findAll();
     }
 
     @PostMapping("create")
