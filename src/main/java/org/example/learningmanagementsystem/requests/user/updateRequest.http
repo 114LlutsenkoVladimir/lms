@@ -3,5 +3,6 @@ Content-Type: application/json
 
 {
   "firstName": "Алексей",
-  "lastName": "Петров"
+  "lastName": "Петров",
+  "email": "sdfs"
 }

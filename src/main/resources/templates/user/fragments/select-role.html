@@ -1,0 +1,9 @@
+<div th:fragment="selectUserRole" class="form-group">
+    <label for="selectUserRole">Роль:</label>
+    <select id="selectUserRole" required>
+        <option th:each="r : ${roles}"
+                th:value="${r}"
+                th:text="${r}">
+        </option>
+    </select>
+</div>

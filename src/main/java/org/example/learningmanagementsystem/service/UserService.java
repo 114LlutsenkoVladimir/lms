@@ -2,16 +2,21 @@ package org.example.learningmanagementsystem.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.example.learningmanagementsystem.dto.user.CreateUserDto;
+import org.example.learningmanagementsystem.dto.user.UpdateUserDto;
 import org.example.learningmanagementsystem.dto.user.UserDto;
 import org.example.learningmanagementsystem.entity.User;
 import org.example.learningmanagementsystem.entity.UserRole;
+import org.example.learningmanagementsystem.exception.IncorrectPasswordException;
 import org.example.learningmanagementsystem.repository.UserRepository;
 import org.hibernate.annotations.NotFound;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.FailedLoginException;
 import java.time.Instant;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class UserService extends AbstractCrudService<User, Long, UserRepository> {
@@ -45,7 +50,7 @@ public class UserService extends AbstractCrudService<User, Long, UserRepository>
         );
     }
 
-    public UserDto updateUser(Long id, CreateUserDto dto) {
+    public UserDto updateUser(Long id, UpdateUserDto dto) {
         User user = repository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("user not found, id: " + id)
         );
@@ -76,7 +81,16 @@ public class UserService extends AbstractCrudService<User, Long, UserRepository>
         );
     }
 
-    public boolean verifyPassword(String rawPassword, String encodedHash) {
-        return passwordEncoder.matches(rawPassword, encodedHash);
+    public void verifyPassword(String rawPassword, String encodedHash) throws IncorrectPasswordException {
+        if(!passwordEncoder.matches(rawPassword, encodedHash))
+            throw new IncorrectPasswordException("incorrect password");
+    }
+
+    public List<UserDto> findAllDto() {
+        return repository.findAllDto();
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return repository.findByEmail(email);
     }
 }
