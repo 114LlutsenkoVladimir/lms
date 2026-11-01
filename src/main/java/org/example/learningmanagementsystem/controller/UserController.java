@@ -24,6 +24,9 @@ public class UserController {
     private final CourseService courseService;
 
 
+    @GetMapping("me")
+    public Long getUserId(HttpSession session) { return (Long) session.getAttribute("userId"); }
+
     @GetMapping("findAll")
     public List<UserDto> findAll() {
         return userService.findAllDto();

@@ -22,6 +22,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
             ".dto.course.CourseReadDto(c.id, c.title, c.description," +
             "c.author.id, c.status, c.createdAt)"+
             "from Course c " +
-            "where c.author.id == :authorId")
+            "where c.author.id = :authorId")
     List<CourseReadDto> findDtoByAuthorId(@Param("authorId") Long authorId);
 }

@@ -5,18 +5,16 @@ import org.example.learningmanagementsystem.dto.user.CreateUserDto;
 import org.example.learningmanagementsystem.dto.user.UpdateUserDto;
 import org.example.learningmanagementsystem.dto.user.UserDto;
 import org.example.learningmanagementsystem.entity.User;
-import org.example.learningmanagementsystem.entity.UserRole;
 import org.example.learningmanagementsystem.exception.IncorrectPasswordException;
 import org.example.learningmanagementsystem.repository.UserRepository;
-import org.hibernate.annotations.NotFound;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.security.auth.login.FailedLoginException;
 import java.time.Instant;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService extends AbstractCrudService<User, Long, UserRepository> {
@@ -92,5 +90,16 @@ public class UserService extends AbstractCrudService<User, Long, UserRepository>
 
     public Optional<User> findByEmail(String email) {
         return repository.findByEmail(email);
+    }
+
+    @Transactional
+    public User registerOauthUser(String email, String firstName, String lastName) {
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPasswordHash(passwordEncoder.encode(UUID.randomUUID().toString()));
+        user.setCreatedAt(Instant.now());
+        return repository.save(user);
     }
 }

@@ -32,9 +32,9 @@ public class User {
     private String lastName;
 
     @ColumnDefault("'ROLE_STUDENT'")
-    @Enumerated(EnumType.STRING) // Храним в БД как текст "USER", "ADMIN"
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserRole role;
+    private UserRole role = UserRole.STUDENT;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @CreationTimestamp

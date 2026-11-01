@@ -8,6 +8,6 @@ public record CourseReadDto(
         String title,
         String description,
         Long authorId,
-        CourseStatus status,
+        String status,
         Instant createdAt
 ) { }
